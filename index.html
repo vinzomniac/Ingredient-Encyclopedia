@@ -474,6 +474,20 @@ ol.steps li { margin-bottom: 10px; line-height: 1.55; }
       .req-thanks { border: 1px solid var(--accent); border-radius: var(--radius); padding: 20px 22px; background: var(--surface); max-width: 640px; margin-top: 26px; }
       .req-thanks h2 { font-family: var(--serif); font-size: 22px; font-weight: 600; margin: 0 0 8px; }
       .req-thanks p { margin: 0 0 14px; }
+      .work-services { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin: 10px 0 30px; }
+      .work-service { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; }
+      .work-service h3 { font-family: var(--serif); font-size: 20px; font-weight: 600; margin: 0 0 8px; }
+      .work-service p { margin: 0; font-size: 15px; }
+      .work-status { border: 1px solid var(--copper); background: var(--warn-bg); border-radius: var(--radius); padding: 14px 18px; font-size: 15px; max-width: 760px; margin: 0 0 26px; }
+      .work-status strong { color: var(--copper); }
+      .cred-strip { display: flex; flex-wrap: wrap; gap: 8px 24px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 14px 0; margin: 0 0 30px; font-family: var(--mono); font-size: 13px; color: var(--dim); max-width: 900px; }
+      .cred-strip b { color: var(--text); font-weight: 500; }
+      .work-steps { margin: 0 0 8px; padding-left: 22px; max-width: 760px; }
+      .work-steps li { margin: 0 0 10px; font-size: 15.5px; }
+      .work-sec-title { font-family: var(--serif); font-size: 24px; font-weight: 600; margin: 30px 0 6px; }
+      .dossier-cta { margin: 28px 0 0; padding: 14px 0 0; border-top: 1px solid var(--border); font-size: 15px; color: var(--dim); }
+      .dossier-cta a { font-weight: 600; }
+      .work-mailto { margin-top: 18px; font-size: 15px; color: var(--dim); max-width: 640px; }
 </style>
   </head>
   <body>
@@ -489,6 +503,7 @@ ol.steps li { margin-bottom: 10px; line-height: 1.55; }
         <a href="#/concepts" data-nav="#/concepts">Concepts</a>
         <a href="#/tools/citrate-buffer" data-nav="#/tools/citrate-buffer">Buffer simulator</a>
         <a href="#/request" data-nav="#/request">Request research</a>
+        <a href="#/work-with-vinny" data-nav="#/work-with-vinny">Work with Vinny</a>
       </nav>
       <div class="site-bar-search">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
@@ -679,6 +694,11 @@ ol.steps li { margin-bottom: 10px; line-height: 1.55; }
             <span class="cat-count">Ask for what's missing</span>
             <p class="cat-examples">An ingredient, brand, product, trade name, or concept that isn't here yet? Request it — approved requests get researched and added in a future update.</p>
           </a>
+          <a class="cat-card" href="#/work-with-vinny">
+            <h3>Work with Vinny</h3>
+            <span class="cat-count">Founding clients opening soon</span>
+            <p class="cat-examples">Formula &amp; scale-up consultation, supplier and manufacturer connections, and regulatory guidance — from the working chemist who built this library.</p>
+          </a>
         </div>
       </section>
       </div>
@@ -772,6 +792,7 @@ ol.steps li { margin-bottom: 10px; line-height: 1.55; }
         <a class="back-link" id="ingBack" href="#/az">&larr; Back to the index</a>
         <nav class="toc" id="ingToc" aria-label="In this dossier"></nav>
         <div id="ingDossier"></div>
+        <p class="dossier-cta">Building something with this ingredient? <a href="#/work-with-vinny">Work with Vinny &rarr;</a></p>
       </div>
       <div class="view" id="view-concept" hidden>
         <nav class="crumbs page-crumb" id="cncCrumbs" aria-label="Breadcrumb"></nav>
@@ -2820,6 +2841,86 @@ lucide.createIcons({icons});\``);if(typeof d&gt;&quot;u&quot;)throw new Error(&q
           <button class="btn" id="reqAgain" type="button">Make another request</button>
         </div>
       </div>
+      <div class="view" id="view-work" hidden>
+        <header class="masthead">
+          <nav class="crumbs" aria-label="Breadcrumb"><a href="#/">Home</a><span class="crumb-sep">›</span><span aria-current="page">Work with Vinny</span></nav>
+          <h1>Work with Vinny</h1>
+          <p class="lede">I'm Vincent Domenick — Vinny. I formulate cosmetics for a living, and this encyclopedia is my working reference: I built it ingredient by ingredient because supplier marketing is no substitute for technical information, and I use it at the bench. If you're building a product and want a formulator in your corner, this page is the door.</p>
+        </header>
+        <div class="work-status">
+          <strong>Founding clients opening soon.</strong> I'm setting up a small consulting practice alongside my production work, and I'm not taking a full roster yet. Leave an inquiry below and you'll be first in line when the first spots open — I read every inquiry myself and reply personally.
+        </div>
+        <h2 class="work-sec-title">What I can help with</h2>
+        <div class="work-services">
+          <div class="work-service">
+            <h3>Formula &amp; scale-up consultation</h3>
+            <p>Help taking a formula from a bench beaker to a batch a manufacturer can actually run: formula review, troubleshooting separation, pH drift, and preservation headaches, and scale-up planning before you commit to a large run.</p>
+          </div>
+          <div class="work-service">
+            <h3>Supplier &amp; manufacturer connections</h3>
+            <p>Introductions to packaging suppliers and contract manufacturers matched to what you're making and the quantities you can realistically run. You contract directly with them — there's no markup from me.</p>
+          </div>
+          <div class="work-service">
+            <h3>Regulatory guidance</h3>
+            <p>Plain-language guidance on the rules that touch a cosmetic product — labeling, claims, and MoCRA basics — so you know where you stand. This is guidance, not legal advice; when a question needs a lawyer, I'll say so.</p>
+          </div>
+        </div>
+        <h2 class="work-sec-title">The short version of the record</h2>
+        <div class="cred-strip">
+          <span><b>BS Bioengineering</b>, Binghamton University (2010)</span>
+          <span>Formulation / R&amp;D chemist — <b>Kolmar</b> 2012–2016</span>
+          <span>Formulation / R&amp;D chemist — <b>Barnet</b> 2016–2024</span>
+          <span><b>Patent holder</b> — lipstick molding process improvement</span>
+          <span>Process development, injection molding + robotics — <b>MPI</b> 2025–2026</span>
+          <span>Production Manager — <b>Savor Beauty</b></span>
+          <span>Based in <b>New Paltz, NY</b></span>
+        </div>
+        <h2 class="work-sec-title">How it works</h2>
+        <ol class="work-steps">
+          <li><strong>Send an inquiry</strong> using the form below — a few lines about what you're making and where you're stuck.</li>
+          <li><strong>We talk.</strong> A short intro call to work out what you actually need and whether I'm the right help for it.</li>
+          <li><strong>You get a written quote</strong> before any work starts. No obligation at any step.</li>
+        </ol>
+        <form class="req-form" id="workForm" action="https://api.web3forms.com/submit" method="POST">
+          <input type="hidden" name="access_key" value="60d90b48-ca5d-47c2-b27b-f960aeb18028" />
+          <input type="hidden" name="subject" value="Consulting inquiry — Ingredient Encyclopedia" />
+          <input type="hidden" name="from_name" value="Ingredient Encyclopedia website" />
+          <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
+          <div class="req-field">
+            <label for="workName">Your name</label>
+            <input id="workName" name="name" type="text" required placeholder="Your name" autocomplete="name" />
+          </div>
+          <div class="req-field">
+            <label for="workEmail">Your email</label>
+            <input id="workEmail" name="email" type="email" required placeholder="you@example.com" autocomplete="email" />
+          </div>
+          <div class="req-field">
+            <label for="workCompany">Brand / company <span class="req-opt">(optional)</span></label>
+            <input id="workCompany" name="company" type="text" placeholder="Brand or company name, if you have one" autocomplete="organization" />
+          </div>
+          <div class="req-field">
+            <label for="workNeed">What do you need?</label>
+            <select id="workNeed" name="need" required>
+              <option value="Formula &amp; scale-up">Formula &amp; scale-up</option>
+              <option value="Supplier &amp; manufacturer connections">Supplier &amp; manufacturer connections</option>
+              <option value="Regulatory guidance">Regulatory guidance</option>
+              <option value="Not sure yet">Not sure yet</option>
+            </select>
+          </div>
+          <div class="req-field">
+            <label for="workMessage">Tell me about it</label>
+            <textarea id="workMessage" name="message" placeholder="What you're making, where you are with it, and where you're stuck…"></textarea>
+          </div>
+          <button class="btn req-submit" id="workSubmit" type="submit">Send the inquiry</button>
+          <div class="req-status" id="workStatus" role="status" aria-live="polite"></div>
+        </form>
+        <div class="req-thanks" id="workThanks" hidden>
+          <h2>Inquiry received — thank you.</h2>
+          <p>Vinny reads every inquiry himself and replies personally. Founding-client spots open soon; inquiries are answered in the order they arrive.</p>
+          <button class="btn" id="workAgain" type="button">Send another inquiry</button>
+        </div>
+        <p class="work-mailto">Prefer email? Write to <a href="mailto:vinzomniacstudios@gmail.com">vinzomniacstudios@gmail.com</a> and tell me what you're working on.</p>
+      </div>
       <footer class="colophon">
           <p class="ai-note">Most of this encyclopedia was researched and drafted with AI assistance. Verify independently before formulating or relying on it.</p>
           Compiled from supplier technical literature and public formulator-supplier pages; every entry lists its sources. Use levels and guidelines are starting points for bench work — always verify against the supplier TDS for your specific grade and run stability and preservative-efficacy testing before any commercial use. Regulatory notes are summaries, not legal advice.
@@ -3561,9 +3662,9 @@ const viewEls = { home: document.getElementById("view-home"), cat: document.getE
   ing: document.getElementById("view-ing"), concept: document.getElementById("view-concept"), az: document.getElementById("view-az"),
   brands: document.getElementById("view-brands"), products: document.getElementById("view-products"),
   trades: document.getElementById("view-trades"), concepts: document.getElementById("view-concepts"),
-  tool: document.getElementById("view-tool"), request: document.getElementById("view-request") };
+  tool: document.getElementById("view-tool"), request: document.getElementById("view-request"), work: document.getElementById("view-work") };
 const rendered = {};
-const NAV_FOR = { home: "#/", az: "#/az", cat: "#/az", ing: "#/az", brands: "#/brands", products: "#/products", trades: "#/trades", concepts: "#/concepts", concept: "#/concepts", tool: "#/tools/citrate-buffer", request: "#/request" };
+const NAV_FOR = { home: "#/", az: "#/az", cat: "#/az", ing: "#/az", brands: "#/brands", products: "#/products", trades: "#/trades", concepts: "#/concepts", concept: "#/concepts", tool: "#/tools/citrate-buffer", request: "#/request", work: "#/work-with-vinny" };
 function showView(name) {
   Object.entries(viewEls).forEach(([k, el]) => { el.hidden = k !== name; });
   document.querySelectorAll("[data-nav]").forEach(a => {
@@ -3732,6 +3833,7 @@ function route() {
     if (a === "products") { if (!rendered.products) { ProductsModule.render(); rendered.products = 1; } showView("products"); document.title = "Products — Ingredient Encyclopedia"; if (b) scrollToId("product-" + b); else window.scrollTo(0, 0); return; }
     if (a === "trades") { if (!rendered.trades) { TradesModule.render(); rendered.trades = 1; } showView("trades"); document.title = "Trade names A–Z — Ingredient Encyclopedia"; if (b) scrollToId("tn-" + b); else window.scrollTo(0, 0); return; }
     if (a === "request") { showView("request"); document.title = "Request research \u2014 Ingredient Encyclopedia"; window.scrollTo(0, 0); return; }
+    if (a === "work-with-vinny") { showView("work"); document.title = "Work with Vinny \u2014 Ingredient Encyclopedia"; window.scrollTo(0, 0); return; }
     if (a === "tools" && b === "citrate-buffer") { showView("tool"); document.title = "Sodium Citrate Buffer Simulator \u2014 Ingredient Encyclopedia"; window.scrollTo(0, 0); return; }
     if (a === "concepts") { if (b) return openConcept(b); if (!rendered.concepts) { ConceptsModule.render(); rendered.concepts = 1; } showView("concepts"); document.title = "Advanced Concepts — Ingredient Encyclopedia"; window.scrollTo(0, 0); return; }
     showView("home"); return;
@@ -3800,6 +3902,46 @@ if (reqForm) {
     reqThanks.hidden = true;
     reqForm.hidden = false;
     const nameEl = document.getElementById("reqName");
+    if (nameEl) nameEl.focus();
+  });
+}
+
+const workForm = document.getElementById("workForm");
+if (workForm) {
+  const workStatus = document.getElementById("workStatus");
+  const workThanks = document.getElementById("workThanks");
+  const workSubmit = document.getElementById("workSubmit");
+  workForm.addEventListener("submit", async ev => {
+    ev.preventDefault();
+    workStatus.className = "req-status";
+    workStatus.textContent = "Sending\u2026";
+    workSubmit.disabled = true;
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Accept": "application/json" },
+        body: new FormData(workForm)
+      });
+      const data = await res.json().catch(() => null);
+      if (!res.ok || !data || data.success !== true) {
+        throw new Error((data && data.message) ? data.message : ("the form service answered HTTP " + res.status));
+      }
+      workForm.reset();
+      workForm.hidden = true;
+      workStatus.textContent = "";
+      workThanks.hidden = false;
+      window.scrollTo(0, 0);
+    } catch (err) {
+      workStatus.className = "req-status req-error";
+      workStatus.textContent = "That didn\u2019t go through \u2014 " + err.message + ". Your text is still in the form above; please try again in a moment.";
+    } finally {
+      workSubmit.disabled = false;
+    }
+  });
+  document.getElementById("workAgain").addEventListener("click", () => {
+    workThanks.hidden = true;
+    workForm.hidden = false;
+    const nameEl = document.getElementById("workName");
     if (nameEl) nameEl.focus();
   });
 }
