@@ -914,6 +914,10 @@ lucide.createIcons({icons});\``);if(typeof d&gt;&quot;u&quot;)throw new Error(&q
       border-top: none;
       border-radius: 0 0 32px 32px;
     }
+    .capacity-critical { animation: capPulse 0.7s ease-in-out infinite; }
+    @keyframes capPulse { 0%, 100% { filter: brightness(1); } 50% { filter: brightness(1.85); } }
+    .capacity-segments { background-image: repeating-linear-gradient(90deg, transparent 0, transparent 9px, rgba(2, 6, 23, 0.55) 9px, rgba(2, 6, 23, 0.55) 10px); }
+    @media (prefers-reduced-motion: reduce) { .capacity-critical { animation: none; } }
   &lt;/style&gt;
 &lt;/head&gt;
 &lt;body class=&quot;bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans antialiased selection:bg-cyan-500 selection:text-white&quot;&gt;
@@ -953,6 +957,10 @@ lucide.createIcons({icons});\``);if(typeof d&gt;&quot;u&quot;)throw new Error(&q
         &lt;button id=&quot;btn-speed-fast&quot; title=&quot;Fast Forward (2x)&quot; class=&quot;px-2 py-1 text-xs rounded hover:bg-slate-800 text-slate-300 font-mono&quot;&gt;2.5x&lt;/button&gt;
       &lt;/div&gt;
 
+      &lt;button id=&quot;btn-sound-toggle&quot; title=&quot;Toggle 8-bit sound effects&quot; aria-pressed=&quot;true&quot; class=&quot;flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-slate-700 text-xs font-medium transition&quot;&gt;
+        &lt;i data-lucide=&quot;volume-2&quot; class=&quot;w-3.5 h-3.5&quot;&gt;&lt;/i&gt; Sound On
+      &lt;/button&gt;
+
       &lt;button id=&quot;btn-reset-all&quot; class=&quot;flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-300 border border-rose-500/30 text-xs font-medium transition&quot;&gt;
         &lt;i data-lucide=&quot;rotate-ccw&quot; class=&quot;w-3.5 h-3.5&quot;&gt;&lt;/i&gt; Reset
       &lt;/button&gt;
@@ -984,8 +992,8 @@ lucide.createIcons({icons});\``);if(typeof d&gt;&quot;u&quot;)throw new Error(&q
   &lt;!-- Main Work Area --&gt;
   &lt;main class=&quot;flex-1 p-3 md:p-6 grid grid-cols-1 lg:grid-cols-12 gap-5 max-w-[1800px] w-full mx-auto&quot;&gt;
 
-    &lt;!-- LEFT COLUMN: Simulation Canvas &amp; Direct Lab Controls (Cols 7) --&gt;
-    &lt;section class=&quot;lg:col-span-7 flex flex-col gap-4&quot;&gt;
+    &lt;!-- LEFT COLUMN: Simulation Canvas (Cols 5) — sticky so the beaker stays on screen --&gt;
+    &lt;section class=&quot;lg:col-span-5 flex flex-col gap-4 lg:sticky lg:top-[76px] lg:self-start&quot;&gt;
       
       &lt;!-- Beaker Viewport Card --&gt;
       &lt;div class=&quot;glass-panel rounded-2xl p-4 flex flex-col flex-1 relative overflow-hidden border border-slate-800&quot;&gt;
@@ -999,6 +1007,10 @@ lucide.createIcons({icons});\``);if(typeof d&gt;&quot;u&quot;)throw new Error(&q
           &lt;div class=&quot;flex items-center gap-2 text-xs&quot;&gt;
             &lt;span class=&quot;text-slate-400&quot;&gt;Active Particles:&lt;/span&gt;
             &lt;span id=&quot;particle-counter&quot; class=&quot;font-mono font-bold text-cyan-400&quot;&gt;0&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;flex items-center gap-1.5 pl-2 ml-1 border-l border-slate-700&quot; title=&quot;Live pH — always beside the beaker&quot;&gt;
+            &lt;span class=&quot;text-[10px] uppercase font-mono text-slate-400&quot;&gt;pH&lt;/span&gt;
+            &lt;span id=&quot;ph-mini&quot; class=&quot;font-mono font-black text-xl leading-none text-cyan-300&quot;&gt;7.20&lt;/span&gt;
           &lt;/div&gt;
         &lt;/div&gt;
 
@@ -1072,7 +1084,10 @@ lucide.createIcons({icons});\``);if(typeof d&gt;&quot;u&quot;)throw new Error(&q
           &lt;span class=&quot;text-[11px] text-slate-500 italic&quot;&gt;Click/tap any molecule to inspect&lt;/span&gt;
         &lt;/div&gt;
       &lt;/div&gt;
+    &lt;/section&gt;
 
+    &lt;!-- MIDDLE COLUMN: Reagent Titration Controls — beside the beaker, no scrolling between buttons and ions --&gt;
+    &lt;section class=&quot;lg:col-span-3 flex flex-col gap-4 lg:sticky lg:top-[76px] lg:self-start&quot;&gt;
       &lt;!-- Titration &amp; Reagent Control Panel --&gt;
       &lt;div class=&quot;glass-panel rounded-2xl p-4 border border-slate-800&quot;&gt;
         &lt;h2 class=&quot;text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3 flex items-center justify-between&quot;&gt;
@@ -1080,7 +1095,7 @@ lucide.createIcons({icons});\``);if(typeof d&gt;&quot;u&quot;)throw new Error(&q
           &lt;span id=&quot;reagent-status&quot; class=&quot;text-cyan-400 text-[11px] font-mono lowercase&quot;&gt;Ready for addition&lt;/span&gt;
         &lt;/h2&gt;
 
-        &lt;div class=&quot;grid grid-cols-1 sm:grid-cols-3 gap-3&quot;&gt;
+        &lt;div class=&quot;grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-1 gap-3&quot;&gt;
           
           &lt;!-- Acid Addition (HCl) --&gt;
           &lt;div class=&quot;bg-slate-900/90 rounded-xl p-3 border border-red-500/20 hover:border-red-500/40 transition&quot;&gt;
@@ -1145,10 +1160,25 @@ lucide.createIcons({icons});\``);if(typeof d&gt;&quot;u&quot;)throw new Error(&q
         &lt;/div&gt;
       &lt;/div&gt;
 
+      &lt;!-- Standard Buffer Presets --&gt;
+      &lt;div class=&quot;glass-panel rounded-2xl p-4 border border-slate-800&quot;&gt;
+        &lt;h2 class=&quot;text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1 flex items-center gap-1.5&quot;&gt;
+          &lt;i data-lucide=&quot;bookmark&quot; class=&quot;w-4 h-4 text-cyan-400&quot;&gt;&lt;/i&gt; Standard Citrate Presets
+        &lt;/h2&gt;
+        &lt;p class=&quot;text-[11px] text-slate-400 mb-3&quot;&gt;One tap loads a real citrate buffer at the equilibrium composition for that pH &amp;mdash; the species split comes from the citrate pK&amp;#8336; ladder, the same math the beaker runs on.&lt;/p&gt;
+        &lt;div class=&quot;grid grid-cols-4 lg:grid-cols-2 gap-2&quot;&gt;
+          &lt;button data-preset=&quot;3&quot; class=&quot;preset-btn py-2 px-2 bg-slate-900 hover:bg-slate-800 border border-pink-500/30 hover:border-pink-400/60 rounded-lg text-xs font-bold text-pink-300 active:scale-95 transition&quot;&gt;pH 3&lt;/button&gt;
+          &lt;button data-preset=&quot;4&quot; class=&quot;preset-btn py-2 px-2 bg-slate-900 hover:bg-slate-800 border border-purple-500/30 hover:border-purple-400/60 rounded-lg text-xs font-bold text-purple-300 active:scale-95 transition&quot;&gt;pH 4&lt;/button&gt;
+          &lt;button data-preset=&quot;5&quot; class=&quot;preset-btn py-2 px-2 bg-slate-900 hover:bg-slate-800 border border-blue-500/30 hover:border-blue-400/60 rounded-lg text-xs font-bold text-blue-300 active:scale-95 transition&quot;&gt;pH 5&lt;/button&gt;
+          &lt;button data-preset=&quot;6&quot; class=&quot;preset-btn py-2 px-2 bg-slate-900 hover:bg-slate-800 border border-cyan-500/30 hover:border-cyan-400/60 rounded-lg text-xs font-bold text-cyan-300 active:scale-95 transition&quot;&gt;pH 6&lt;/button&gt;
+        &lt;/div&gt;
+        &lt;p id=&quot;preset-status&quot; class=&quot;text-[10px] font-mono text-slate-500 mt-2&quot;&gt;Presets load 24 citrate units (&amp;asymp;0.096 M total citrate).&lt;/p&gt;
+      &lt;/div&gt;
+
     &lt;/section&gt;
 
-    &lt;!-- RIGHT COLUMN: Analytical Instrumentation, Live Charts &amp; Educational Guide (Cols 5) --&gt;
-    &lt;section class=&quot;lg:col-span-5 flex flex-col gap-4&quot;&gt;
+    &lt;!-- RIGHT COLUMN: Analytical Instrumentation, Live Charts &amp; Educational Guide (Cols 4) --&gt;
+    &lt;section class=&quot;lg:col-span-4 flex flex-col gap-4&quot;&gt;
       
       &lt;!-- Digital pH Meter &amp; Indicator Spectrum Gauge --&gt;
       &lt;div class=&quot;glass-panel rounded-2xl p-4 border border-slate-800 relative&quot;&gt;
@@ -1169,13 +1199,16 @@ lucide.createIcons({icons});\``);if(typeof d&gt;&quot;u&quot;)throw new Error(&q
             &lt;span class=&quot;text-xs font-mono text-slate-400&quot;&gt;[H⁺] ≈ &lt;span id=&quot;h-concentration&quot; class=&quot;text-slate-200&quot;&gt;6.3×10⁻⁸ M&lt;/span&gt;&lt;/span&gt;
           &lt;/div&gt;
 
-          &lt;!-- Buffer Capacity Remaining Meter --&gt;
+          &lt;!-- Buffer Capacity Health Bar --&gt;
           &lt;div class=&quot;text-right&quot;&gt;
-            &lt;div class=&quot;text-[10px] text-slate-400 uppercase font-mono&quot;&gt;Buffer Capacity&lt;/div&gt;
-            &lt;div class=&quot;w-28 h-2.5 bg-slate-800 rounded-full overflow-hidden mt-1 border border-slate-700 flex&quot;&gt;
-              &lt;div id=&quot;capacity-bar&quot; class=&quot;h-full bg-gradient-to-r from-cyan-400 to-blue-500 transition-all duration-300&quot; style=&quot;width: 85%;&quot;&gt;&lt;/div&gt;
+            &lt;div class=&quot;text-[10px] text-slate-400 uppercase font-mono flex items-center justify-end gap-2&quot;&gt;
+              &lt;span&gt;Buffer Health&lt;/span&gt;
+              &lt;span id=&quot;capacity-text&quot; class=&quot;font-bold text-emerald-300&quot;&gt;&amp;mdash;&lt;/span&gt;
             &lt;/div&gt;
-            &lt;span id=&quot;capacity-text&quot; class=&quot;text-[10px] font-mono text-cyan-400&quot;&gt;85% Available&lt;/span&gt;
+            &lt;div class=&quot;w-40 max-w-[44vw] h-3.5 bg-slate-800 rounded mt-1 border border-slate-700 relative overflow-hidden&quot;&gt;
+              &lt;div id=&quot;capacity-bar&quot; class=&quot;h-full transition-all duration-300 capacity-segments&quot; style=&quot;width: 85%; background-color: #22c55e;&quot;&gt;&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div id=&quot;capacity-warn&quot; class=&quot;text-[10px] font-mono font-bold text-rose-400 mt-1 hidden&quot;&gt;&amp;#9888; One more push may break it&lt;/div&gt;
           &lt;/div&gt;
         &lt;/div&gt;
 
@@ -1275,6 +1308,32 @@ lucide.createIcons({icons});\``);if(typeof d&gt;&quot;u&quot;)throw new Error(&q
         &lt;/div&gt;
       &lt;/div&gt;
 
+      &lt;!-- Bench Recipe Readout (calculated live from the simulation state) --&gt;
+      &lt;div class=&quot;glass-panel rounded-2xl p-4 border border-slate-800&quot; id=&quot;recipe-panel&quot;&gt;
+        &lt;div class=&quot;flex items-center justify-between mb-2&quot;&gt;
+          &lt;span class=&quot;text-xs font-semibold text-slate-300 flex items-center gap-1.5&quot;&gt;
+            &lt;i data-lucide=&quot;clipboard-list&quot; class=&quot;w-4 h-4 text-cyan-400&quot;&gt;&lt;/i&gt; Bench Recipe &amp;mdash; to make 1 L of this buffer
+          &lt;/span&gt;
+          &lt;span class=&quot;text-[10px] font-mono text-slate-500&quot;&gt;calculated from the simulation&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div id=&quot;recipe-body&quot; class=&quot;text-xs space-y-1.5&quot;&gt;
+          &lt;p class=&quot;text-slate-400&quot;&gt;Loading&amp;hellip;&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;p class=&quot;text-[10px] text-slate-500 leading-relaxed mt-2&quot;&gt;Computed from the beaker&amp;rsquo;s live species state. Sim calibration: 1 particle = 1 mmol in the 250 mL beaker. Starting point only &amp;mdash; confirm with a calibrated pH meter and trim dropwise before bench use.&lt;/p&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Target pH Challenge Mode --&gt;
+      &lt;div class=&quot;glass-panel rounded-2xl p-4 border border-amber-500/25&quot; id=&quot;challenge-panel&quot;&gt;
+        &lt;div class=&quot;flex items-center justify-between mb-2&quot;&gt;
+          &lt;span class=&quot;text-xs font-semibold text-slate-200 flex items-center gap-1.5&quot;&gt;
+            &lt;i data-lucide=&quot;target&quot; class=&quot;w-4 h-4 text-amber-400&quot;&gt;&lt;/i&gt; Target pH Challenges
+          &lt;/span&gt;
+          &lt;span id=&quot;challenge-score&quot; class=&quot;text-[11px] font-mono text-amber-300&quot;&gt;Completed 0 / 4&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div id=&quot;challenge-list&quot; class=&quot;space-y-2&quot;&gt;&lt;/div&gt;
+        &lt;div id=&quot;challenge-status&quot; class=&quot;mt-3 text-xs rounded-lg border border-slate-700 bg-slate-950/60 px-3 py-2 text-slate-300&quot;&gt;Pick a challenge: reach the target pH, then hold it through the disturbance that follows.&lt;/div&gt;
+      &lt;/div&gt;
+
       &lt;!-- Educational Explanation / Reaction Mechanics Card --&gt;
       &lt;div id=&quot;edu-card&quot; class=&quot;glass-panel rounded-2xl p-4 border border-cyan-500/20 bg-gradient-to-b from-slate-900/90 to-slate-900/40&quot;&gt;
         &lt;h3 id=&quot;edu-title&quot; class=&quot;text-sm font-bold text-cyan-300 flex items-center gap-2 mb-1.5&quot;&gt;
@@ -1311,11 +1370,93 @@ lucide.createIcons({icons});\``);if(typeof d&gt;&quot;u&quot;)throw new Error(&q
     &lt;/div&gt;
   &lt;/footer&gt;
 
+  &lt;!-- Mobile Control Dock: primary reagents + live pH pinned to the bottom of the screen,
+       so the buttons and the beaker are always visible at the same time on phones --&gt;
+  &lt;div id=&quot;mobile-dock&quot; class=&quot;lg:hidden sticky bottom-0 z-40 bg-slate-900/95 backdrop-blur border-t border-slate-700 px-2 py-2 flex items-center gap-1.5 shadow-[0_-6px_20px_rgba(0,0,0,0.5)]&quot;&gt;
+    &lt;div class=&quot;flex flex-col items-center px-1 shrink-0&quot;&gt;
+      &lt;span class=&quot;text-[9px] uppercase font-mono text-slate-400 leading-none&quot;&gt;pH&lt;/span&gt;
+      &lt;span id=&quot;ph-dock&quot; class=&quot;font-mono font-black text-lg leading-tight text-cyan-300&quot;&gt;7.20&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;button id=&quot;dock-acid-1&quot; class=&quot;flex-1 py-2 bg-red-600 active:scale-95 text-white font-semibold rounded-lg text-[11px] transition&quot;&gt;H⁺ +1&lt;/button&gt;
+    &lt;button id=&quot;dock-acid-5&quot; class=&quot;py-2 px-2 bg-red-950 text-red-300 border border-red-700/50 rounded-lg text-[11px] font-semibold active:scale-95 transition&quot;&gt;+5&lt;/button&gt;
+    &lt;button id=&quot;dock-base-1&quot; class=&quot;flex-1 py-2 bg-emerald-600 active:scale-95 text-white font-semibold rounded-lg text-[11px] transition&quot;&gt;OH⁻ +1&lt;/button&gt;
+    &lt;button id=&quot;dock-base-5&quot; class=&quot;py-2 px-2 bg-emerald-950 text-emerald-300 border border-emerald-700/50 rounded-lg text-[11px] font-semibold active:scale-95 transition&quot;&gt;+5&lt;/button&gt;
+    &lt;button id=&quot;dock-salt&quot; class=&quot;flex-1 py-2 bg-cyan-600 active:scale-95 text-white font-semibold rounded-lg text-[11px] transition&quot;&gt;Salt&lt;/button&gt;
+  &lt;/div&gt;
+
   &lt;!-- Application Logic --&gt;
   &lt;script&gt;
     /* =========================================================================
        Sodium Citrate Buffer Interactive Simulation Engine
        ========================================================================= */
+
+    /* =========================================================================
+       8-Bit Sound Engine — Web Audio API square-wave chiptune blips, fully
+       synthesized in code (no audio files). The context is created/resumed
+       only when a sound is triggered by user-driven simulation events, so
+       nothing ever autoplays on load.
+       ========================================================================= */
+    const SFX = {
+      ctx: null,
+      master: null,
+      muted: false,
+      ensure() {
+        if (!this.ctx) {
+          const AC = window.AudioContext || window.webkitAudioContext;
+          if (!AC) return false;
+          this.ctx = new AC();
+          this.master = this.ctx.createGain();
+          this.master.gain.value = 0.12; // modest master volume
+          this.master.connect(this.ctx.destination);
+        }
+        if (this.ctx.state === 'suspended') this.ctx.resume();
+        return true;
+      },
+      tone(freq, dur, delay = 0, type = 'square', vol = 1, slideTo = null) {
+        if (this.muted || !this.ensure()) return;
+        const t0 = this.ctx.currentTime + delay;
+        const osc = this.ctx.createOscillator();
+        const g = this.ctx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, t0);
+        if (slideTo) osc.frequency.exponentialRampToValueAtTime(Math.max(30, slideTo), t0 + dur);
+        g.gain.setValueAtTime(vol, t0);
+        g.gain.exponentialRampToValueAtTime(0.001, t0 + dur);
+        osc.connect(g);
+        g.connect(this.master);
+        osc.start(t0);
+        osc.stop(t0 + dur + 0.02);
+      },
+      plip()   { this.tone(840, 0.09, 0, 'square', 0.9, 320); },                                                  // a drop lands in the beaker
+      fizz()   { [1318, 1760, 2093, 2637].forEach((f, i) =&gt; this.tone(f, 0.07, i * 0.05, 'square', 0.5)); },       // salt packet dissolving
+      rise()   { this.tone(520, 0.09, 0, 'square', 0.65); this.tone(880, 0.13, 0.08, 'square', 0.65); },           // pH settles into the buffered zone
+      jingle() { [523, 659, 784, 1047].forEach((f, i) =&gt; this.tone(f, 0.11, i * 0.09, 'square', 0.65)); },         // equilibrium restored after the buffer was broken
+      buzz()   { this.tone(130, 0.32, 0, 'sawtooth', 0.75, 82); },                                                // buffer capacity exceeded / broken
+      click()  { this.tone(1250, 0.03, 0, 'square', 0.35); }                                                      // UI switch tick
+    };
+
+    // Sound-zone tracking for transition cues (edge-triggered, fires once per crossing)
+    let sndPrevZone = 'buffered'; // 'buffered' | 'free' | 'broken'
+    function soundZoneCheck(counts) {
+      if (state.mode !== 'buffer') { sndPrevZone = 'buffered'; return; }
+      const totalCit = counts.cit3 + counts.cit2 + counts.cit1 + counts.cit0;
+      if (totalCit === 0) return;
+      let zone = 'buffered';
+      const acidBroken = counts.h &gt; 0 &amp;&amp; counts.cit3 + counts.cit2 + counts.cit1 === 0;
+      const baseBroken = counts.oh &gt; 0 &amp;&amp; counts.cit0 + counts.cit1 + counts.cit2 === 0;
+      if (acidBroken || baseBroken) zone = 'broken';
+      else if (counts.h &gt; 0 || counts.oh &gt; 0) zone = 'free';
+      if (zone !== sndPrevZone) {
+        if (zone === 'broken') {
+          SFX.buzz();
+        } else if (zone === 'buffered' &amp;&amp; sndPrevZone === 'broken' &amp;&amp; state.currentPH &gt;= 5.5 &amp;&amp; state.currentPH &lt;= 8.5) {
+          SFX.jingle();
+        } else if (zone === 'buffered' &amp;&amp; sndPrevZone === 'free') {
+          SFX.rise();
+        }
+        sndPrevZone = zone;
+      }
+    }
 
     // Simulation State
     const state = {
@@ -1733,6 +1874,7 @@ lucide.createIcons({icons});\``);if(typeof d&gt;&quot;u&quot;)throw new Error(&q
       // Constrain pH to realistic bounds
       newPH = Math.max(1.0, Math.min(14.0, Number(newPH.toFixed(2))));
       state.currentPH = newPH;
+      soundZoneCheck(counts);
 
       // Log titration data point
       const lastPoint = state.titrationData[state.titrationData.length - 1];
@@ -1752,6 +1894,12 @@ lucide.createIcons({icons});\``);if(typeof d&gt;&quot;u&quot;)throw new Error(&q
       const phDisplay = document.getElementById('ph-display');
       phDisplay.innerText = ph.toFixed(2);
       phDisplay.style.color = phToHexColor(ph);
+
+      // Mirror the live pH beside the beaker and in the mobile dock
+      const phMini = document.getElementById('ph-mini');
+      if (phMini) { phMini.innerText = ph.toFixed(2); phMini.style.color = phToHexColor(ph); }
+      const phDock = document.getElementById('ph-dock');
+      if (phDock) { phDock.innerText = ph.toFixed(2); phDock.style.color = phToHexColor(ph); }
 
       // [H+] concentration
       const hConc = Math.pow(10, -ph);
@@ -1785,18 +1933,50 @@ lucide.createIcons({icons});\``);if(typeof d&gt;&quot;u&quot;)throw new Error(&q
       const tint = getUniversalIndicatorColor(ph);
       fluidLayer.style.backgroundColor = `rgb(${tint.r}, ${tint.g}, ${tint.b})`;
 
-      // Buffer capacity bar calculation
+      // Buffer capacity health bar. The buffer capacity of a polyprotic system is
+      // proportional to the variance of the protonation number across citrate
+      // molecules: maximal while species are mixed, and zero when every citrate
+      // sits in the same protonation state (nothing left to give or take a proton).
       const totalCitrate = state.species.cit3 + state.species.cit2 + state.species.cit1 + state.species.cit0;
       let capacityPct = 0;
+      let stepsToCliff = 0;
       if (state.mode === 'buffer' &amp;&amp; totalCitrate &gt; 0) {
-        // High capacity when there is a mix of species, drops when all cit0 (fully protonated) or all cit3 (fully deprotonated)
-        const unprotonated = state.species.cit3 + state.species.cit2;
-        const protonated = state.species.cit1 + state.species.cit0;
-        const balance = 1 - Math.abs(unprotonated - protonated) / totalCitrate;
-        capacityPct = Math.round(Math.max(8, balance * 100));
+        const nMean = (state.species.cit2 + 2 * state.species.cit1 + 3 * state.species.cit0) / totalCitrate;
+        const nSqMean = (state.species.cit2 + 4 * state.species.cit1 + 9 * state.species.cit0) / totalCitrate;
+        const nVar = Math.max(0, nSqMean - nMean * nMean);
+        capacityPct = Math.round(Math.min(100, (nVar / 0.25) * 100));
+        const stepsAcid = state.species.cit3 * 3 + state.species.cit2 * 2 + state.species.cit1; // H+ still absorbable
+        const stepsBase = state.species.cit2 + state.species.cit1 * 2 + state.species.cit0 * 3;   // protons still donatable
+        stepsToCliff = Math.min(stepsAcid, stepsBase);
       }
-      document.getElementById('capacity-bar').style.width = `${capacityPct}%`;
-      document.getElementById('capacity-text').innerText = `${capacityPct}% Buffering Remaining`;
+      state.capacityPct = capacityPct;
+      const capBar = document.getElementById('capacity-bar');
+      const capText = document.getElementById('capacity-text');
+      const capWarn = document.getElementById('capacity-warn');
+      const bufferBroken = state.mode === 'buffer' &amp;&amp; totalCitrate &gt; 0 &amp;&amp; stepsToCliff === 0 &amp;&amp; (state.species.h &gt; 0 || state.species.oh &gt; 0);
+      const capCritical = state.mode === 'buffer' &amp;&amp; totalCitrate &gt; 0 &amp;&amp; !bufferBroken &amp;&amp; (stepsToCliff &lt;= 3 || capacityPct &lt;= 20);
+      capBar.style.width = `${capacityPct}%`;
+      capBar.style.backgroundColor = capacityPct &gt; 50 ? '#22c55e' : (capacityPct &gt; 25 ? '#f59e0b' : '#ef4444');
+      capBar.classList.toggle('capacity-critical', capCritical || bufferBroken);
+      if (state.mode !== 'buffer' || totalCitrate === 0) {
+        capText.innerText = 'no buffer';
+        capText.style.color = '#94a3b8';
+      } else if (bufferBroken) {
+        capText.innerText = 'BROKEN \u00b7 0%';
+        capText.style.color = '#f87171';
+      } else {
+        capText.innerText = `${capacityPct}% capacity`;
+        capText.style.color = capacityPct &gt; 50 ? '#4ade80' : (capacityPct &gt; 25 ? '#fbbf24' : '#f87171');
+      }
+      if (capWarn) {
+        if (bufferBroken) {
+          capWarn.classList.remove('hidden');
+          capWarn.innerText = '\u2715 Buffer broken \u2014 dissolve salt or counter-titrate to recover';
+        } else {
+          capWarn.classList.toggle('hidden', !capCritical);
+          capWarn.innerText = '\u26a0 One more push may break it';
+        }
+      }
 
       // Species Breakdown percentages &amp; counts
       updateSpeciesBar('cit3', state.species.cit3, totalCitrate);
@@ -1809,6 +1989,10 @@ lucide.createIcons({icons});\``);if(typeof d&gt;&quot;u&quot;)throw new Error(&q
 
       // Draw the Titration curve
       drawTitrationCurve();
+
+      // Bench tools: live recipe readout + challenge evaluation
+      updateRecipePanel();
+      challengeTick();
     }
 
     function updateSpeciesBar(id, count, total) {
@@ -1906,6 +2090,7 @@ lucide.createIcons({icons});\``);if(typeof d&gt;&quot;u&quot;)throw new Error(&q
     // Reagent Injection Functions
     function addAcid(drops = 1) {
       triggerPipetteAnimation('#ef4444');
+      SFX.plip();
       state.netDropDelta -= drops;
 
       for (let d = 0; d &lt; drops; d++) {
@@ -1922,6 +2107,7 @@ lucide.createIcons({icons});\``);if(typeof d&gt;&quot;u&quot;)throw new Error(&q
 
     function addBase(drops = 1) {
       triggerPipetteAnimation('#10b981');
+      SFX.plip();
       state.netDropDelta += drops;
 
       for (let d = 0; d &lt; drops; d++) {
@@ -1935,6 +2121,7 @@ lucide.createIcons({icons});\``);if(typeof d&gt;&quot;u&quot;)throw new Error(&q
     }
 
     function addSodiumCitrateSalt() {
+      SFX.fizz();
       // 1 salt packet delivers: 1 Cit3- and 3 Na+ ions (Na3Cit dissociation)
       const originX = canvas.width / 2;
       const originY = 60;
@@ -2185,6 +2372,27 @@ lucide.createIcons({icons});\``);if(typeof d&gt;&quot;u&quot;)throw new Error(&q
     }, { passive: true });
 
     // UI Event Wiring
+    // Sound toggle (default: sound on; sounds only follow user interaction)
+    const soundToggleBtn = document.getElementById('btn-sound-toggle');
+    soundToggleBtn.addEventListener('click', () =&gt; {
+      SFX.muted = !SFX.muted;
+      soundToggleBtn.setAttribute('aria-pressed', String(!SFX.muted));
+      soundToggleBtn.innerHTML = SFX.muted
+        ? '&lt;i data-lucide=&quot;volume-x&quot; class=&quot;w-3.5 h-3.5&quot;&gt;&lt;/i&gt; Sound Off'
+        : '&lt;i data-lucide=&quot;volume-2&quot; class=&quot;w-3.5 h-3.5&quot;&gt;&lt;/i&gt; Sound On';
+      soundToggleBtn.classList.toggle('text-rose-300', SFX.muted);
+      soundToggleBtn.classList.toggle('text-cyan-300', !SFX.muted);
+      lucide.createIcons();
+      if (!SFX.muted) SFX.click();
+    });
+
+    // Mobile dock buttons mirror the main reagent controls
+    document.getElementById('dock-acid-1').addEventListener('click', () =&gt; addAcid(1));
+    document.getElementById('dock-acid-5').addEventListener('click', () =&gt; addAcid(5));
+    document.getElementById('dock-base-1').addEventListener('click', () =&gt; addBase(1));
+    document.getElementById('dock-base-5').addEventListener('click', () =&gt; addBase(5));
+    document.getElementById('dock-salt').addEventListener('click', () =&gt; addSodiumCitrateSalt());
+
     document.getElementById('btn-add-acid-1').addEventListener('click', () =&gt; addAcid(1));
     document.getElementById('btn-add-acid-5').addEventListener('click', () =&gt; addAcid(5));
     document.getElementById('btn-add-base-1').addEventListener('click', () =&gt; addBase(1));
@@ -2268,6 +2476,7 @@ lucide.createIcons({icons});\``);if(typeof d&gt;&quot;u&quot;)throw new Error(&q
     const modeWaterBtn = document.getElementById('btn-mode-water');
 
     modeBufferBtn.addEventListener('click', () =&gt; {
+      SFX.click();
       state.mode = 'buffer';
       modeBufferBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all bg-cyan-500 text-slate-950 shadow-md flex items-center gap-1.5';
       modeWaterBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white transition-all flex items-center gap-1.5';
@@ -2276,6 +2485,7 @@ lucide.createIcons({icons});\``);if(typeof d&gt;&quot;u&quot;)throw new Error(&q
     });
 
     modeWaterBtn.addEventListener('click', () =&gt; {
+      SFX.click();
       state.mode = 'water';
       modeWaterBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all bg-rose-500 text-white shadow-md flex items-center gap-1.5';
       modeBufferBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white transition-all flex items-center gap-1.5';
@@ -2286,6 +2496,7 @@ lucide.createIcons({icons});\``);if(typeof d&gt;&quot;u&quot;)throw new Error(&q
     // Module Lesson Tab Selection
     document.querySelectorAll('.lesson-tab').forEach(tab =&gt; {
       tab.addEventListener('click', () =&gt; {
+        SFX.click();
         const lesson = tab.getAttribute('data-lesson');
         switchLesson(lesson);
       });
@@ -2297,6 +2508,229 @@ lucide.createIcons({icons});\``);if(typeof d&gt;&quot;u&quot;)throw new Error(&q
       canvas.height = canvas.clientHeight;
       drawTitrationCurve();
     });
+
+    /* =========================================================================
+       Bench Tools — Standard Presets, Recipe Readout &amp; Target pH Challenges
+       ========================================================================= */
+
+    // Species fractions of a triprotic acid at a given pH, from the same citrate
+    // pKa ladder the beaker's Henderson-Hasselbalch math is built on.
+    function citrateAlphas(ph) {
+      const H = Math.pow(10, -ph);
+      const Ka1 = Math.pow(10, -PKA1), Ka2 = Math.pow(10, -PKA2), Ka3 = Math.pow(10, -PKA3);
+      const d = Math.pow(H, 3) + Ka1 * Math.pow(H, 2) + Ka1 * Ka2 * H + Ka1 * Ka2 * Ka3;
+      return {
+        cit0: Math.pow(H, 3) / d,
+        cit1: Ka1 * Math.pow(H, 2) / d,
+        cit2: Ka1 * Ka2 * H / d,
+        cit3: Ka1 * Ka2 * Ka3 / d
+      };
+    }
+
+    // Load a standard citrate buffer preset: split a fixed citrate load across
+    // the four species by the equilibrium fractions for the target pH (largest-
+    // remainder rounding), with spectator Na+ balancing the citrate charge.
+    const PRESET_TOTAL_CITRATE = 24;
+    function loadPreset(targetPH) {
+      if (state.mode !== 'buffer') modeBufferBtn.click();
+      const a = citrateAlphas(targetPH);
+      const raw = {
+        cit3: a.cit3 * PRESET_TOTAL_CITRATE,
+        cit2: a.cit2 * PRESET_TOTAL_CITRATE,
+        cit1: a.cit1 * PRESET_TOTAL_CITRATE,
+        cit0: a.cit0 * PRESET_TOTAL_CITRATE
+      };
+      const counts = {};
+      let assigned = 0;
+      for (const k of Object.keys(raw)) { counts[k] = Math.floor(raw[k]); assigned += counts[k]; }
+      let remainder = PRESET_TOTAL_CITRATE - assigned;
+      const byFraction = Object.keys(raw).sort((x, y) =&gt; (raw[y] - Math.floor(raw[y])) - (raw[x] - Math.floor(raw[x])));
+      for (let i = 0; remainder &gt; 0; i++, remainder--) counts[byFraction[i % byFraction.length]]++;
+
+      particles = [];
+      state.titrationData = [{ dropCount: 0, pH: targetPH }];
+      state.netDropDelta = 0;
+      for (const k of ['cit3', 'cit2', 'cit1', 'cit0']) {
+        for (let i = 0; i &lt; counts[k]; i++) particles.push(new Particle(k));
+      }
+      const naCount = 3 * counts.cit3 + 2 * counts.cit2 + counts.cit1;
+      for (let i = 0; i &lt; naCount; i++) particles.push(new Particle('na'));
+
+      SFX.fizz();
+      updateStateCounts();
+      document.getElementById('preset-status').innerText = `Loaded pH ${targetPH} preset \u2014 beaker reads pH ${state.currentPH.toFixed(2)}`;
+      document.getElementById('reagent-status').innerText = `Loaded standard citrate buffer, pH ${targetPH}`;
+    }
+
+    document.querySelectorAll('.preset-btn').forEach(btn =&gt; {
+      btn.addEventListener('click', () =&gt; {
+        abortChallenge('Challenge aborted \u2014 a preset was loaded.');
+        loadPreset(Number(btn.getAttribute('data-preset')));
+      });
+    });
+
+    /* -------- Recipe readout -------- */
+    // Sim calibration: the beaker holds 250 mL and 1 citrate particle = 1 mmol.
+    const RECIPE = { beakerL: 0.250, mmolPerParticle: 1, mwCitricAcid: 192.12, mwNaCitrate2H2O: 294.10, mwNaOH: 40.00 };
+    function recipeRow(label, value, accent) {
+      return `&lt;div class=&quot;flex items-baseline justify-between gap-3&quot;&gt;
+        &lt;span class=&quot;text-slate-400&quot;&gt;${label}&lt;/span&gt;
+        &lt;span class=&quot;font-mono font-bold ${accent || 'text-slate-100'}&quot;&gt;${value}&lt;/span&gt;
+      &lt;/div&gt;`;
+    }
+    function updateRecipePanel() {
+      const body = document.getElementById('recipe-body');
+      if (!body) return;
+      const s = state.species;
+      const totalCit = s.cit3 + s.cit2 + s.cit1 + s.cit0;
+      if (state.mode !== 'buffer' || totalCit === 0) {
+        body.innerHTML = '&lt;p class=&quot;text-slate-400&quot;&gt;No citrate buffer in the beaker. Dissolve a salt packet or load a preset and the 1 L recipe appears here.&lt;/p&gt;';
+        return;
+      }
+      const totalM = (totalCit * RECIPE.mmolPerParticle) / 1000 / RECIPE.beakerL; // mol of citrate per litre
+      const nBar = (s.cit2 + 2 * s.cit1 + 3 * s.cit0) / totalCit;                 // mean bound protons per citrate
+      const saltMol = totalM * (1 - nBar / 3);                                     // share supplied as trisodium citrate
+      const acidMol = totalM * (nBar / 3);                                         // share supplied as citric acid
+      let rows = '';
+      rows += recipeRow('Target pH', state.currentPH.toFixed(2), 'text-cyan-300');
+      rows += recipeRow('Total citrate', totalM.toFixed(3) + ' mol/L', 'text-cyan-300');
+      rows += recipeRow('Trisodium citrate dihydrate', (saltMol * RECIPE.mwNaCitrate2H2O).toFixed(2) + ' g');
+      rows += recipeRow('Citric acid (anhydrous)', (acidMol * RECIPE.mwCitricAcid).toFixed(2) + ' g');
+      if (s.h &gt; 0) rows += recipeRow('Plus excess strong acid in beaker', '\u2248 ' + (s.h * RECIPE.mmolPerParticle / RECIPE.beakerL).toFixed(0) + ' mL of 1 M HCl', 'text-rose-300');
+      if (s.oh &gt; 0) rows += recipeRow('Plus excess strong base in beaker', '\u2248 ' + (s.oh * RECIPE.mmolPerParticle / RECIPE.beakerL * RECIPE.mwNaOH / 1000).toFixed(2) + ' g NaOH', 'text-rose-300');
+      rows += recipeRow('Water', 'q.s. to 1 L', 'text-slate-300');
+      rows += `&lt;p class=&quot;text-[10px] text-slate-500 pt-1&quot;&gt;Single-acid route: ${(totalM * RECIPE.mwCitricAcid).toFixed(2)} g citric acid + ${((3 - nBar) * totalM * RECIPE.mwNaOH).toFixed(2)} g NaOH reaches the same protonation state.&lt;/p&gt;`;
+      body.innerHTML = rows;
+    }
+
+    /* -------- Target pH challenges -------- */
+    const CHALLENGES = [
+      { id: 'warmup',   name: 'First Buffer',  desc: 'From the standard starting beaker, land on pH 6.40 \u2014 right on the pKa\u2083 plateau.', start: 'default', target: 6.40, tol: 0.25, disturb: null, holdTol: 0 },
+      { id: 'acidtest', name: 'The Acid Test', desc: 'Start from the pH 6 preset and tune to pH 5.00 \u2014 then hold it through 10 drops of acid.', start: 6, target: 5.00, tol: 0.25, disturb: { type: 'acid', drops: 10 }, holdTol: 0.65 },
+      { id: 'climb',    name: 'Alkaline Climb', desc: 'Start from the pH 4 preset and climb to pH 6.40 \u2014 then hold it through 10 drops of base.', start: 4, target: 6.40, tol: 0.25, disturb: { type: 'base', drops: 10 }, holdTol: 0.65 },
+      { id: 'cliff',    name: 'Cliff Walker',  desc: 'Start from the pH 5 preset and sit exactly on pKa\u2082 (pH 4.76) \u2014 then hold through 8 drops of acid.', start: 5, target: 4.76, tol: 0.20, disturb: { type: 'acid', drops: 8 }, holdTol: 0.75 }
+    ];
+    const challengeDone = {};
+    let challenge = null; // { def, phase: 'reach' | 'disturbing' | 'holdwait' | 'won' | 'lost', timer, holdSince }
+
+    function renderChallengeList() {
+      const list = document.getElementById('challenge-list');
+      if (!list) return;
+      const doneCount = CHALLENGES.filter(c =&gt; challengeDone[c.id]).length;
+      document.getElementById('challenge-score').innerText = `Completed ${doneCount} / ${CHALLENGES.length}`;
+      list.innerHTML = CHALLENGES.map((c, i) =&gt; `
+        &lt;div class=&quot;flex items-start justify-between gap-3 rounded-lg border ${challenge &amp;&amp; challenge.def.id === c.id &amp;&amp; challenge.phase !== 'won' &amp;&amp; challenge.phase !== 'lost' ? 'border-amber-400/60 bg-amber-950/20' : 'border-slate-800 bg-slate-950/50'} px-3 py-2&quot;&gt;
+          &lt;div&gt;
+            &lt;div class=&quot;text-xs font-bold text-slate-200&quot;&gt;${i + 1}. ${c.name} ${challengeDone[c.id] ? '&lt;span class=&quot;ml-1 text-[10px] font-mono px-1.5 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-700/60&quot;&gt;Completed&lt;/span&gt;' : ''}&lt;/div&gt;
+            &lt;div class=&quot;text-[11px] text-slate-400 leading-snug mt-0.5&quot;&gt;${c.desc}&lt;/div&gt;
+          &lt;/div&gt;
+          &lt;button data-challenge=&quot;${c.id}&quot; class=&quot;challenge-start shrink-0 py-1.5 px-3 rounded-lg text-[11px] font-bold bg-amber-500/90 hover:bg-amber-400 text-slate-950 active:scale-95 transition&quot;&gt;${challengeDone[c.id] ? 'Replay' : 'Start'}&lt;/button&gt;
+        &lt;/div&gt;`).join('');
+      list.querySelectorAll('.challenge-start').forEach(btn =&gt; {
+        btn.addEventListener('click', () =&gt; startChallenge(btn.getAttribute('data-challenge')));
+      });
+    }
+
+    function setChallengeStatus(html, tone) {
+      const el = document.getElementById('challenge-status');
+      if (!el) return;
+      el.innerHTML = html;
+      el.className = 'mt-3 text-xs rounded-lg border px-3 py-2 ' + (tone === 'win'
+        ? 'border-emerald-500/50 bg-emerald-950/40 text-emerald-200'
+        : tone === 'fail'
+        ? 'border-rose-500/50 bg-rose-950/40 text-rose-200'
+        : tone === 'active'
+        ? 'border-amber-500/40 bg-amber-950/20 text-amber-100'
+        : 'border-slate-700 bg-slate-950/60 text-slate-300');
+    }
+
+    function startChallenge(id) {
+      const def = CHALLENGES.find(c =&gt; c.id === id);
+      if (!def) return;
+      if (challenge &amp;&amp; challenge.timer) clearInterval(challenge.timer);
+      if (state.autoInterval) { clearInterval(state.autoInterval); state.autoAcid = false; state.autoBase = false; toggleDrips(); }
+      challenge = { def, phase: 'setup', timer: null, holdSince: 0 };
+      if (state.mode !== 'buffer') modeBufferBtn.click();
+      if (def.start === 'default') initializeBeaker(); else loadPreset(def.start);
+      challenge.phase = 'reach';
+      SFX.click();
+      renderChallengeList();
+      challengeTick();
+    }
+
+    function abortChallenge(msg) {
+      if (!challenge || challenge.phase === 'won' || challenge.phase === 'lost') return;
+      if (challenge.timer) clearInterval(challenge.timer);
+      challenge = null;
+      renderChallengeList();
+      if (msg) setChallengeStatus(msg, '');
+    }
+
+    function beginDisturbance() {
+      const def = challenge.def;
+      challenge.phase = 'disturbing';
+      setChallengeStatus(`&lt;strong&gt;Target reached!&lt;/strong&gt; Hold on \u2014 ${def.disturb.drops} drops of ${def.disturb.type === 'acid' ? 'acid' : 'base'} incoming. The buffer has to absorb them and settle within \u00b1${def.holdTol.toFixed(2)} of pH ${def.target.toFixed(2)}.`, 'active');
+      let delivered = 0;
+      challenge.timer = setInterval(() =&gt; {
+        if (!challenge) return;
+        if (def.disturb.type === 'acid') addAcid(1); else addBase(1);
+        delivered++;
+        if (delivered &gt;= def.disturb.drops) {
+          clearInterval(challenge.timer);
+          challenge.timer = null;
+          challenge.phase = 'holdwait';
+          challenge.holdSince = Date.now();
+        }
+      }, 300);
+    }
+
+    function winChallenge() {
+      challenge.phase = 'won';
+      challengeDone[challenge.def.id] = true;
+      SFX.jingle();
+      renderChallengeList();
+      setChallengeStatus(`&lt;strong&gt;${challenge.def.name} \u2014 complete!&lt;/strong&gt; The beaker settled at pH ${state.currentPH.toFixed(2)} against a target of ${challenge.def.target.toFixed(2)}. ${CHALLENGES.filter(c =&gt; challengeDone[c.id]).length} of ${CHALLENGES.length} challenges done.`, 'win');
+    }
+
+    function loseChallenge(reason) {
+      challenge.phase = 'lost';
+      SFX.buzz();
+      renderChallengeList();
+      setChallengeStatus(`&lt;strong&gt;${challenge.def.name} \u2014 missed.&lt;/strong&gt; ${reason} Hit Start to retry.`, 'fail');
+    }
+
+    function challengeTick() {
+      if (!challenge) return;
+      const def = challenge.def;
+      const s = state.species;
+      const settled = s.h === 0 &amp;&amp; s.oh === 0;
+      if (challenge.phase === 'reach') {
+        if (settled &amp;&amp; Math.abs(state.currentPH - def.target) &lt;= def.tol) {
+          if (def.disturb) beginDisturbance();
+          else winChallenge();
+          return;
+        }
+        const delta = state.currentPH - def.target;
+        const hint = !settled
+          ? 'Waiting for the beaker to settle\u2026'
+          : (delta &gt; 0 ? `Add acid \u2014 you are ${delta.toFixed(2)} above target.` : `Add base \u2014 you are ${Math.abs(delta).toFixed(2)} below target.`);
+        setChallengeStatus(`&lt;strong&gt;${def.name}:&lt;/strong&gt; target pH ${def.target.toFixed(2)} \u00b1${def.tol.toFixed(2)} \u00b7 now pH ${state.currentPH.toFixed(2)}. ${hint}`, 'active');
+      } else if (challenge.phase === 'holdwait') {
+        const timedOut = Date.now() - challenge.holdSince &gt; 7000;
+        if (settled || timedOut) {
+          if (Math.abs(state.currentPH - def.target) &lt;= def.holdTol) winChallenge();
+          else loseChallenge(`After the disturbance the beaker settled at pH ${state.currentPH.toFixed(2)}, outside \u00b1${def.holdTol.toFixed(2)} of ${def.target.toFixed(2)}.`);
+        } else {
+          setChallengeStatus(`&lt;strong&gt;Holding\u2026&lt;/strong&gt; disturbance delivered \u2014 waiting for the last drops to be absorbed. pH now ${state.currentPH.toFixed(2)}; it must settle within \u00b1${def.holdTol.toFixed(2)} of ${def.target.toFixed(2)}.`, 'active');
+        }
+      }
+    }
+
+    // Interruptions end a run
+    document.getElementById('btn-reset-all').addEventListener('click', () =&gt; abortChallenge('Challenge aborted \u2014 beaker reset.'));
+    modeWaterBtn.addEventListener('click', () =&gt; abortChallenge('Challenge aborted \u2014 challenges run in buffer mode.'));
+
+    renderChallengeList();
 
     // Boot Application
     window.addEventListener('load', () =&gt; {
