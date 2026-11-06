@@ -488,6 +488,24 @@ ol.steps li { margin-bottom: 10px; line-height: 1.55; }
       .dossier-cta { margin: 28px 0 0; padding: 14px 0 0; border-top: 1px solid var(--border); font-size: 15px; color: var(--dim); }
       .dossier-cta a { font-weight: 600; }
       .work-mailto { margin-top: 18px; font-size: 15px; color: var(--dim); max-width: 640px; }
+      .pledge-note { border-left-color: var(--accent); }
+      .pledge-note strong { color: var(--accent-text); }
+      .pledge-hero { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: var(--radius); padding: 22px 24px; max-width: 820px; margin: 0 0 28px; }
+      .pledge-hero .pledge-kicker { font-family: var(--mono); font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--copper); margin: 0 0 10px; }
+      .pledge-hero p { font-size: 17.5px; line-height: 1.65; margin: 0; max-width: 720px; }
+      .pledge-hero p + p { margin-top: 12px; font-size: 16px; }
+      .pledge-hero strong { color: var(--accent-text); }
+      .support-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin: 10px 0 30px; max-width: 900px; }
+      .support-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; display: flex; flex-direction: column; }
+      .support-card h3 { font-family: var(--serif); font-size: 20px; font-weight: 600; margin: 0 0 8px; }
+      .support-card p { margin: 0 0 16px; font-size: 15px; flex: 1; }
+      .support-card .btn { align-self: flex-start; }
+      .kofi-btn { background: var(--accent); border-color: var(--accent); color: #fff; font-size: 15.5px; padding: 11px 22px; }
+      .kofi-btn:hover { color: #fff; opacity: .92; border-color: var(--accent); }
+      @media (prefers-color-scheme: dark) { .kofi-btn, .kofi-btn:hover { color: #0d1512; } }
+      .support-why { max-width: 760px; font-size: 16px; line-height: 1.65; }
+      .pledge-line { font-size: 14px; color: var(--text); margin: 0 0 8px; }
+      .pledge-line a { font-weight: 600; }
 </style>
   </head>
   <body>
@@ -504,6 +522,7 @@ ol.steps li { margin-bottom: 10px; line-height: 1.55; }
         <a href="#/tools/citrate-buffer" data-nav="#/tools/citrate-buffer">Buffer simulator</a>
         <a href="#/request" data-nav="#/request">Request research</a>
         <a href="#/work-with-vinny" data-nav="#/work-with-vinny">Work with Vinny</a>
+        <a href="#/support" data-nav="#/support">Support</a>
       </nav>
       <div class="site-bar-search">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
@@ -521,6 +540,9 @@ ol.steps li { margin-bottom: 10px; line-height: 1.55; }
         </div>
         <div class="snapshot-note about-note">
           <strong>How this snapshot was made.</strong> The entries were researched and drafted with AI assistance, working from the supplier and technical sources cited at the foot of every dossier. Treat the figures as well-sourced starting points, not gospel: check use levels, pH windows, and pricing snapshots against current supplier documentation before using an entry in a real formula or a purchase.
+        </div>
+        <div class="snapshot-note pledge-note">
+          <strong>Free forever.</strong> No paywall, no ads, no tracking — this library stays free. If it helped you, you can <a href="#/support">support the work</a>; if not, it&rsquo;s yours anyway.
         </div>
         <div class="stats-row">
           <span><b>278</b> ingredient entries — and growing</span>
@@ -698,6 +720,11 @@ ol.steps li { margin-bottom: 10px; line-height: 1.55; }
             <h3>Work with Vinny</h3>
             <span class="cat-count">Founding clients opening soon</span>
             <p class="cat-examples">Formula &amp; scale-up consultation, supplier and manufacturer connections, and regulatory guidance — from the working chemist who built this library.</p>
+          </a>
+          <a class="cat-card" href="#/support">
+            <h3>Support this library</h3>
+            <span class="cat-count">Free forever</span>
+            <p class="cat-examples">No paywall, no ads, no tracking. If this library saved you time at the bench, you can tip the work on Ko-fi — voluntary, always.</p>
           </a>
         </div>
       </section>
@@ -2921,8 +2948,35 @@ lucide.createIcons({icons});\``);if(typeof d&gt;&quot;u&quot;)throw new Error(&q
         </div>
         <p class="work-mailto">Prefer email? Write to <a href="mailto:vinzomniacstudios@gmail.com">vinzomniacstudios@gmail.com</a> and tell me what you're working on.</p>
       </div>
+      <div class="view" id="view-support" hidden>
+        <header class="masthead">
+          <nav class="crumbs" aria-label="Breadcrumb"><a href="#/">Home</a><span class="crumb-sep">›</span><span aria-current="page">Support this library</span></nav>
+          <h1>Support this library</h1>
+          <p class="lede">This encyclopedia is free to read, free to use, and free to share. There are two voluntary ways to support it — and neither one unlocks anything, because nothing here is locked.</p>
+        </header>
+        <div class="pledge-hero">
+          <p class="pledge-kicker">The pledge</p>
+          <p><strong>This library is free, and it stays free. No paywall. No ads. No tracking.</strong> It was assembled with AI from public sources and one chemist&rsquo;s bench notes — knowledge like this should be open. If it saved you time or helped a batch, you can support the work below. If not, it&rsquo;s yours anyway.</p>
+        </div>
+        <h2 class="work-sec-title">Two doors, both voluntary</h2>
+        <div class="support-grid">
+          <div class="support-card">
+            <h3>Tip the work on Ko-fi</h3>
+            <p>Hosting this site costs nothing — the real cost is the research time and bench hours behind every entry. If a dossier saved you a supplier call, a failed batch, or an afternoon of digging, a tip on Ko-fi helps keep the library growing. It&rsquo;s support for the work, not a toll: everything stays open whether you tip or not.</p>
+            <a class="btn kofi-btn" href="https://ko-fi.com/vincentdomenick" target="_blank" rel="noopener">Support on Ko-fi →</a>
+          </div>
+          <div class="support-card">
+            <h3>Hire the human</h3>
+            <p>The information is free. Vincent&rsquo;s hours are the paid work — formula and scale-up consultation, supplier and manufacturer connections, and regulatory guidance for people building a product of their own.</p>
+            <a class="btn" href="#/work-with-vinny">Work with Vinny →</a>
+          </div>
+        </div>
+        <h2 class="work-sec-title">Why free?</h2>
+        <p class="support-why">Formulation knowledge has a habit of ending up behind paywalls, expensive courses, and supplier marketing. This library is a small stand against that. It was put together with AI from public sources — supplier literature, technical papers, published guidelines — and checked against a working chemist&rsquo;s experience. Charging for access to that would feel wrong, and running ads or tracking readers to pay for it would feel worse. So it stays open: trust over extraction. The doors above are there for anyone who wants to use them, and the library is exactly the same for everyone who doesn&rsquo;t.</p>
+      </div>
       <footer class="colophon">
           <p class="ai-note">Most of this encyclopedia was researched and drafted with AI assistance. Verify independently before formulating or relying on it.</p>
+          <p class="pledge-line"><strong>Free forever</strong> — no paywall, no ads, no tracking. <a href="#/support">Support this library →</a></p>
           Compiled from supplier technical literature and public formulator-supplier pages; every entry lists its sources. Use levels and guidelines are starting points for bench work — always verify against the supplier TDS for your specific grade and run stability and preservative-efficacy testing before any commercial use. Regulatory notes are summaries, not legal advice.
         </footer>
     </div>
@@ -3662,9 +3716,9 @@ const viewEls = { home: document.getElementById("view-home"), cat: document.getE
   ing: document.getElementById("view-ing"), concept: document.getElementById("view-concept"), az: document.getElementById("view-az"),
   brands: document.getElementById("view-brands"), products: document.getElementById("view-products"),
   trades: document.getElementById("view-trades"), concepts: document.getElementById("view-concepts"),
-  tool: document.getElementById("view-tool"), request: document.getElementById("view-request"), work: document.getElementById("view-work") };
+  tool: document.getElementById("view-tool"), request: document.getElementById("view-request"), work: document.getElementById("view-work"), support: document.getElementById("view-support") };
 const rendered = {};
-const NAV_FOR = { home: "#/", az: "#/az", cat: "#/az", ing: "#/az", brands: "#/brands", products: "#/products", trades: "#/trades", concepts: "#/concepts", concept: "#/concepts", tool: "#/tools/citrate-buffer", request: "#/request", work: "#/work-with-vinny" };
+const NAV_FOR = { home: "#/", az: "#/az", cat: "#/az", ing: "#/az", brands: "#/brands", products: "#/products", trades: "#/trades", concepts: "#/concepts", concept: "#/concepts", tool: "#/tools/citrate-buffer", request: "#/request", work: "#/work-with-vinny", support: "#/support" };
 function showView(name) {
   Object.entries(viewEls).forEach(([k, el]) => { el.hidden = k !== name; });
   document.querySelectorAll("[data-nav]").forEach(a => {
@@ -3834,6 +3888,7 @@ function route() {
     if (a === "trades") { if (!rendered.trades) { TradesModule.render(); rendered.trades = 1; } showView("trades"); document.title = "Trade names A–Z — Ingredient Encyclopedia"; if (b) scrollToId("tn-" + b); else window.scrollTo(0, 0); return; }
     if (a === "request") { showView("request"); document.title = "Request research \u2014 Ingredient Encyclopedia"; window.scrollTo(0, 0); return; }
     if (a === "work-with-vinny") { showView("work"); document.title = "Work with Vinny \u2014 Ingredient Encyclopedia"; window.scrollTo(0, 0); return; }
+    if (a === "support") { showView("support"); document.title = "Support this library \u2014 Ingredient Encyclopedia"; window.scrollTo(0, 0); return; }
     if (a === "tools" && b === "citrate-buffer") { showView("tool"); document.title = "Sodium Citrate Buffer Simulator \u2014 Ingredient Encyclopedia"; window.scrollTo(0, 0); return; }
     if (a === "concepts") { if (b) return openConcept(b); if (!rendered.concepts) { ConceptsModule.render(); rendered.concepts = 1; } showView("concepts"); document.title = "Advanced Concepts — Ingredient Encyclopedia"; window.scrollTo(0, 0); return; }
     showView("home"); return;
